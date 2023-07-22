@@ -1,0 +1,17 @@
+# Usando a imagem de produção do Node.js
+FROM node:bullseye AS production
+
+# Definindo o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copiando os arquivos de código-fonte para o container
+COPY . .
+
+# Instalando as dependências do projeto
+RUN npm install --production
+
+# Compilando o código TypeScript
+RUN npm run build
+
+# Definindo o comando para executar a aplicação (substitua 'start' pelo comando correto)
+CMD ["npm", "start"]

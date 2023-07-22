@@ -1,0 +1,31 @@
+version: "3"
+services:
+  base-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    # Defina as configurações específicas do serviço de base aqui, se necessário
+
+  node-front:
+    build:
+      context: ./node-front
+      dockerfile: Dockerfile.production
+    # Defina as configurações específicas do serviço do front-end aqui, se necessário
+
+  ruby-back:
+    build:
+      context: ./ruby-back
+      dockerfile: Dockerfile.production
+    # Defina as configurações específicas do serviço do Ruby on Rails aqui, se necessário
+
+  php-back:
+    build:
+      context: ./php-back
+      dockerfile: Dockerfile.production
+    # Defina as configurações específicas do serviço do Laravel aqui, se necessário
+
+  python-back:
+    build:
+      context: ./python-back
+      dockerfile: Dockerfile.production
+    # Defina as configurações específicas do serviço do FastAPI aqui, se necessário

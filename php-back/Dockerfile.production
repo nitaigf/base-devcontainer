@@ -1,0 +1,14 @@
+# Usando a imagem de produção do PHP
+FROM php:bullseye AS production
+
+# Definindo o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copiando os arquivos de código-fonte para o container
+COPY . .
+
+# Instalando as dependências necessárias para a produção (se houver)
+RUN composer install --no-dev
+
+# Definindo o comando para executar a aplicação (substitua 'start' pelo comando correto)
+CMD ["php", "artisan", "serve"]

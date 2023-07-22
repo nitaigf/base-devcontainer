@@ -1,0 +1,14 @@
+# Usando a imagem de desenvolvimento do PHP
+FROM php:bullseye AS development
+
+# Definindo o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copiando os arquivos de código-fonte para o container
+COPY . .
+
+# Instalando todas as dependências, incluindo as de desenvolvimento
+RUN composer install
+
+# Definindo o comando para executar a aplicação em modo de desenvolvimento (substitua 'dev' pelo comando correto)
+CMD ["php", "artisan", "serve"]
