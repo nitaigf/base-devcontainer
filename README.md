@@ -7,3 +7,12 @@ bash --login '/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resou
 
 docker-machine start default
 ```
+
+No POWERSHELL para rodar 'vagrant ssh' é necessário definir o ambiente ssh
+
+$Env:VAGRANT_PREFER_SYSTEM_BIN += 0
+
+
+No POWERSHELL para entrar no docker após levantado é necessário usar o comando
+
+docker exec -it base-dev sh

@@ -5,36 +5,43 @@ FROM debian:bullseye AS development
 WORKDIR /app
 
 # Copiando os arquivos de código-fonte para o container
-COPY . .
+# COPY . .
 
 # Instalando o git e demais pacotes
-RUN apt-get update && apt-get install -y git dirmngr gpg curl gawk
+RUN apt-get update && apt-get upgrade -y && apt-get install -y --fix-missing git gpg curl wget build-essential libssl-dev libffi-dev zlib1g-dev libreadline-dev libyaml-dev libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common apt-transport-https gnupg2 ca-certificates libc6-dev tzdata libgdbm-dev libncurses5-dev automake libtool bison unzip
+
+# Instalando as bibliotecas dos bancos de dados
+RUN apt-get update && apt-get install -y libsqlite3-dev sqlite3 libpq-dev firebird-dev default-libmysqlclient-dev freetds-dev
 
 # Instalando o asdf
-RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.12.0 && \
-  echo ". $HOME/.asdf/asdf.sh" >> ~/.profile && \
-  echo ". $HOME/.asdf/completions/asdf.bash" >> ~/.profile; \
-  . ~/.profile
+RUN git clone https://github.com/asdf-vm/asdf.git /root/.asdf --branch v0.12.0 && \
+  /bin/sh -c echo ". /root/.asdf/asdf.sh" >> /root/.profile && \
+  /bin/sh -c echo ". /root/.asdf/completions/asdf.bash" >> /root/.profile && \
+  /bin/sh -c echo 'legacy_version_file = yes' >> /root/.asdfrc && \
+  /bin/sh -c . /root/.profile
 
-# Instalação do Python
-RUN asdf plugin add python https://github.com/danhper/asdf-python.git \
-  asdf install python latest \
-  asdf global python latest
+# # Instalação do Python
+# RUN /bin/sh -c asdf plugin add python https://github.com/danhper/asdf-python.git && \
+#   /bin/sh -c asdf install python latest && \
+#   /bin/sh -c asdf global python latest
 
-# Instalação do NodeJS
-RUN asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git \
-  asdf install nodejs latest \
-  asdf global nodejs latest
+# # Instalação do NodeJS
+# RUN /bin/sh -c asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git && \
+#   /bin/sh -c asdf install nodejs latest && \
+#   /bin/sh -c asdf global nodejs latest && \
+#   npm i -g npm @angular/cli @nestjs/cli
 
-# Instalação do Ruby
-RUN asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git \
-  asdf install ruby latest \
-  asdf global ruby latest
+# # Instalação do Ruby
+# RUN /bin/sh -c asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git && \
+#   /bin/sh -c asdf install ruby latest && \
+#   /bin/sh -c asdf global ruby latest && \
+#   gem install bundler rails && \
+#   gem update --system 3.4.17
 
 # Instalação do Php
-RUN asdf plugin add php https://github.com/asdf-community/asdf-php.git \
-  asdf install php latest \
-  asdf global php latest
+# RUN asdf plugin add php https://github.com/asdf-community/asdf-php.git \
+#   asdf install php latest \
+#   asdf global php latest
 
 # Defina aqui qualquer configuração global necessária para o ambiente de desenvolvimento
 
